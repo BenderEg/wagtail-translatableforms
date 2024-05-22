@@ -1,0 +1,21 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "wagtail_translatableforms"
+version = "0.1.1"
+description = "Add translatableforms to wagtail projects"
+authors = ["Egor Nikitin <eanikitin90@gmail.com>"]
+readme = "README.md"
+homepage = "https://github.com/BenderEg/wagtail-translatableforms"
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = ">=3.11"
+django = "^4.2.11"
+djangorestframework = "^3.15.0"
+drf_spectacular = "^0.27.1"
+wagtailstreamforms = "^4.1.0"
+wagtail-localize = "^1.8.2"
+wagtail = "^5.2.3"
