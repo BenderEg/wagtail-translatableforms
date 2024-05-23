@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "wagtail_translatableforms"
-version = "0.1.1"
+version = "0.1.4"
 description = "Add translatableforms to wagtail projects"
 authors = ["Egor Nikitin <eanikitin90@gmail.com>"]
 readme = "README.md"
