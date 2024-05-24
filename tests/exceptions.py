@@ -1,0 +1,2 @@
+class FormNotValidError(Exception):
+    pass

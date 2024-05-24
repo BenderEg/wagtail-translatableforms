@@ -1,0 +1,11 @@
+.gitignore
+.gitlab-ci.yml
+.venv
+.git
+dist
+README.md
+pyproject.toml
+.dockerignore
+__pycache__
+LICENSE
+MANIFEST.in

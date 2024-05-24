@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    container_name: wagtail_translatableforms_app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - DJANGO_SETTINGS_MODULE=tests.settings
+      - ALLOWED_HOSTS=*
+      - DATABASE_URL=postgres://debug:debug@postgres:5432/wagtail_translatableforms
+
+  postgres:
+    image: docker.io/postgres:16
+    container_name: wagtail_translatableforms_app_db
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=wagtail_translatableforms
+      - POSTGRES_USER=debug
+      - POSTGRES_PASSWORD=debug
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-d", "postgres"]
+      interval: 10s
+      timeout: 60s
+      retries: 5
+      start_period: 5s
