@@ -133,6 +133,7 @@ class AbstractTranslatableForm(CustomTranslatableMixin, AbstractForm):
         """Returns submission class."""
         return CustomFormSubmission
 
+    @transaction.atomic()
     def delete(self, **kwargs) -> tuple[int, dict[str, int]]:
         content = get_translation_source_content()
         filtered = list(
@@ -143,14 +144,14 @@ class AbstractTranslatableForm(CustomTranslatableMixin, AbstractForm):
             ),
         )
         if filtered:
-            related_forms = self.__class__.objects.filter(
+            related_forms = self.__class__.objects.exclude(pk=self.pk).filter(
                 translation_key=self.translation_key,
             )
             with transaction.atomic():
                 for ele in related_forms:
                     ele.delete()
-            return None
         return super().delete(**kwargs)
+
 
     def process_form_submission(self, form, ip_addr=None):
         """Runs each hook if selected in the form."""

@@ -7,7 +7,7 @@ from wagtail import urls as wagtail_urls
 
 
 urlpatterns = [
-    path("cms", include(wagtailadmin_urls)),
+    path("cms/", include(wagtailadmin_urls)),
     path("", include(wagtail_urls)),
 ]
 

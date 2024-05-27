@@ -11,6 +11,10 @@ class StreamsConfig(AppConfig):
 
         for app in (
             'django.contrib.admin',
+            'django.contrib.admin',
+            'django.contrib.contenttypes',
+            'django.contrib.sites',
+            'django.contrib.messages',
             'rest_framework',
             'drf_spectacular',
             'wagtail_modeladmin',
