@@ -9,3 +9,4 @@ pyproject.toml
 __pycache__
 LICENSE
 MANIFEST.in
+test.yml

@@ -1,6 +1,9 @@
-FROM python:3.11.8-alpine
+FROM python:3.11.8-alpine as base
 
-ENV PYTHONUNBUFFERED 1
+FROM base as builder
+
+RUN mkdir /install
+WORKDIR /install
 
 RUN pip install --upgrade pip
 
@@ -15,20 +18,23 @@ RUN apk update \
   postgresql-dev \
   libffi-dev\
   py-cffi \
-  build-base\
-  && apk add jpeg-dev zlib-dev freetype-dev lcms2-dev openjpeg-dev tiff-dev tk-dev tcl-dev \
-  # Translations dependencies
-  && apk add gettext \
-  # https://docs.djangoproject.com/en/dev/ref/django-admin/#dbshell
-  && apk add postgresql-client \
-  && apk add make \
-  # git
-  && apk add git \
-  && apk add curl
+  build-base
 
 COPY requirements.txt requirements.txt
 
-RUN pip install -r requirements.txt && apk del .build-deps
+RUN pip install --prefix=/install -r requirements.txt \
+  && apk del .build-deps \
+  && rm requirements.txt
+
+FROM base
+
+COPY --from=builder /install /usr/local
+
+ENV PYTHONUNBUFFERED 1
+
+RUN apk update \
+  && apk add postgresql-client \
+  && apk add curl
 
 RUN mkdir /app/
 WORKDIR /app
